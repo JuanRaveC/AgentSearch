@@ -9,3 +9,6 @@ if __name__ == '__main__':
     create_data_dir(FOLDER_NAME)
     print('Creando Crawler')
     Crawler(FOLDER_NAME)
+    #validando existencia
+    #print('validando existencia')
+    #print(retreive_information('python'))

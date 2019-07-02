@@ -1,7 +1,7 @@
 from db_connection import db_connection
 from urllib.request import urlopen
-# from link_finder import LinkFinder
 from utils import *
+from bs4 import BeautifulSoup
 
 
 class Crawler:
@@ -10,9 +10,9 @@ class Crawler:
     # crea cursor de tipo dict
     cursor = conn.cursor(dictionary=True)
     # constantes
-    QUERY = 'select * from agentdb.url where crawled_ind = 0 limit 1'
-    UPDATE = 'update agentdb.url set crawled_ind = %s where id_url = %s'
-    THEME_NAME = 'select tema from agentdb.tema where id_tema = 215454'
+    URL_QUERY = 'select * from agentdb.url where crawled_ind = 0 limit 1'
+    URL_UPDATE = 'update agentdb.url set crawled_ind = {} where id_url = {}'
+    THEME_INFORMATION = 'select tema from agentdb.tema where id_tema = {}'
     folder_name = ''
 
     def __init__(self, folder_name):
@@ -23,62 +23,83 @@ class Crawler:
     @staticmethod
     def fetch_url_info():
         try:
-            Crawler.cursor.execute(Crawler.QUERY)
+            Crawler.cursor.execute(Crawler.URL_QUERY)
             # row = cursor.fetchone()
             for row in Crawler.cursor:
-                return row['id_url'], row['url'], row['id_tema']
+                return row['id_url'], row['url'], row['id_tema'], row['institucion']
         except Exception as error:
             print(error)
             print('Error al consultar la url a Crawlear')
-            return '',''
+            return '', ''
 
-    #hace el update en el registro/url que se consultó para marcar como visitada
+    # hace el update en el registro/url que se consultó para marcar como visitada
     @staticmethod
     def update_url(indicator, url_id):
-        data = (indicator, url_id)
+        update_query = Crawler.URL_UPDATE.format(indicator, url_id)
+        print(update_query)
         try:
-            Crawler.cursor.execute(Crawler.UPDATE, data)
+            Crawler.cursor.execute(update_query)
+            Crawler.conn.commit()
         except Exception as error:
             print(error)
             print('Error al actualizar la url')
         finally:
-            cursor.close()
-            conn.close()
-        
+            Crawler.cursor.close()
+            Crawler.conn.close()
+
+    # metodo para obtener el tema de la url que se visita
     @staticmethod
     def get_theme(theme_id):
+        query = Crawler.THEME_INFORMATION.format(theme_id)
         try:
-            Crawler.cursor.execute(Crawler.THEME_NAME)
+            Crawler.cursor.execute(query)
             for row in Crawler.cursor:
                 return row['tema']
         except Exception as error:
             print(error)
             print('Error al consultar el id del tema')
-            return ''
+            return '', ''
 
     # obtiene url a crawlear y una vez termina, guarda archivo con informacion encontrada
     @staticmethod
     def crawl_page(thread_name):
         html_string = ''
         url_info = Crawler.fetch_url_info()
-        #print(url_info)
-        url_to_crawl = url_info[1]
-        #print(url_to_crawl)
-        url_id = url_info[0]
-        print(url_id)
-        theme_id = url_info[2]
-        print(theme_id)
-        print(thread_name + ' Crawling ')#+ url_to_crawl)
         if url_info is not None:
+            url_to_crawl = url_info[1]
+            url_id = url_info[0]
+            theme_id = url_info[2]
+            url_institution = url_info[3]
+            print(thread_name + ' Crawling ')
             try:
+                # se hace la peticion GET a la url
                 response = urlopen(url_to_crawl)
+                # valida si la respuesta es de tipo texto en el header content-type
                 if 'text/html' in response.getheader('Content-Type'):
+                    # obtiene el html en una variable de bytes
                     html_bytes = response.read()
-                    html_string = html_bytes.decode("utf-8")
-                    create_data_files(Crawler.folder_name, Crawler.get_theme(theme_id), html_string)
-                    #Crawler.update_url(1,url_id)
+                    # decodifica los bytes con el decode utf-8 del parser
+                    print(response.headers.get_content_charset())
+                    html_string = html_bytes.decode('cp1252')
+                    # crea archivo con la respuesta en el folder
+                    file_name = Crawler.get_theme(theme_id)+'-'+url_institution
+                    print(file_name)
+                    create_data_files(Crawler.folder_name,
+                                      file_name, html_string)
+                    # marca la url visitada
+                    # Crawler.update_url(1,url_id)
             except Exception as e:
                 print(str(e))
-                #Crawler.update_url(0, url_id)
+                Crawler.update_url(0, url_id)
         else:
             print('Error al obtener url')
+
+
+#import requests
+#from bs4 import BeautifulSoup
+
+#url='https://campus.tdea.edu.co/bivi/busquedaExterna.do?blnExterna=1&strAccion=busquedaBasica&strOpcionesBusqueda=ITEM.STRTITULO&strBusqueda=ciencia&idColeccion=-1'
+#webpage=requests.get(url, verify=False)
+#soup= BeautifulSoup(webpage.content, 'html.parser')
+#content=str(webpage.content, 'windows-1252')
+#print(content)

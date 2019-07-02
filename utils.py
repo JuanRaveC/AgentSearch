@@ -1,4 +1,5 @@
 import os
+from db_connection import db_connection
 
 #crear carpeta para guardar datos obtenidos
 def create_data_dir(directory):
@@ -16,3 +17,23 @@ def create_data_files(folder_name, file_name, data):
 def write_file(path, data):
     with open(path, 'w') as f:
         f.write(data)
+
+def retreive_information(key_word):
+    query = "select * from agentdb.historial where palabra_clave like '%{}%' limit 1".format(key_word)
+    xml_query = "select * from agentdb.xml where id_xml = {}".format(key_word)
+    print(query)
+    conn = db_connection()
+    # crea cursor de tipo dict
+    cursor = conn.cursor()
+    result_set = ''
+    try:
+        cursor.execute(query)
+        result_set = cursor.fetchone()
+        if result_set[3] is not None:
+            cursor.execute(xml_query)
+            xml_file = cursor.fetchone()
+            return str(xml_file)
+    except Exception as error:
+        print(error)
+        print('No se pudo obtener historial')
+        return ''
