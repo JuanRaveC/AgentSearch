@@ -2,6 +2,7 @@ from db_connection import db_connection
 from urllib.request import urlopen
 from utils import *
 from bs4 import BeautifulSoup
+import requests
 
 
 class Crawler:
@@ -60,7 +61,7 @@ class Crawler:
             print('Error al consultar el id del tema')
             return '', ''
 
-    # obtiene url a crawlear y una vez termina, guarda archivo con informacion encontrada
+    # obtiene url a buscar y una vez termina, guarda archivo con informacion encontrada
     @staticmethod
     def crawl_page(thread_name):
         html_string = ''
@@ -73,33 +74,22 @@ class Crawler:
             print(thread_name + ' Crawling ')
             try:
                 # se hace la peticion GET a la url
-                response = urlopen(url_to_crawl)
-                # valida si la respuesta es de tipo texto en el header content-type
-                if 'text/html' in response.getheader('Content-Type'):
-                    # obtiene el html en una variable de bytes
-                    html_bytes = response.read()
-                    # decodifica los bytes con el decode utf-8 del parser
-                    print(response.headers.get_content_charset())
-                    html_string = html_bytes.decode('cp1252')
-                    # crea archivo con la respuesta en el folder
-                    file_name = Crawler.get_theme(theme_id)+'-'+url_institution
-                    print(file_name)
-                    create_data_files(Crawler.folder_name,
-                                      file_name, html_string)
-                    # marca la url visitada
-                    # Crawler.update_url(1,url_id)
+                webpage = requests.get(url_to_crawl, verify=False)
+                soup = BeautifulSoup(webpage.content, 'html.parser')
+                if webpage.headers.get('charset') == 'windows-1252':
+                    content = str(webpage.content, 'windows-1252')
+                elif webpage.headers.get('charset') == 'utf-8':
+                    content = str(webpage.content, 'utf-8')
+                else:
+                    pass
+
+                print(soup)
+                file_name = Crawler.get_theme(theme_id)+'-'+url_institution
+                create_data_files(Crawler.folder_name,
+                                  file_name, content)
+                Crawler.update_url(1,url_id)
             except Exception as e:
                 print(str(e))
                 Crawler.update_url(0, url_id)
         else:
             print('Error al obtener url')
-
-
-#import requests
-#from bs4 import BeautifulSoup
-
-#url='https://campus.tdea.edu.co/bivi/busquedaExterna.do?blnExterna=1&strAccion=busquedaBasica&strOpcionesBusqueda=ITEM.STRTITULO&strBusqueda=ciencia&idColeccion=-1'
-#webpage=requests.get(url, verify=False)
-#soup= BeautifulSoup(webpage.content, 'html.parser')
-#content=str(webpage.content, 'windows-1252')
-#print(content)

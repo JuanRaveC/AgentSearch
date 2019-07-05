@@ -1,0 +1,2 @@
+class ProcessAgent(cola):
+    pass
