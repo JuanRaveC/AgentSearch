@@ -76,14 +76,8 @@ class Crawler:
                 # se hace la peticion GET a la url
                 webpage = requests.get(url_to_crawl, verify=False)
                 soup = BeautifulSoup(webpage.content, 'html.parser')
-                if webpage.headers.get('charset') == 'windows-1252':
-                    content = str(webpage.content, 'windows-1252')
-                elif webpage.headers.get('charset') == 'utf-8':
-                    content = str(webpage.content, 'utf-8')
-                else:
-                    pass
-
-                print(soup)
+                #decodificacion segun charset
+                content = str(webpage.content, webpage.headers.get('charset'))   
                 file_name = Crawler.get_theme(theme_id)+'-'+url_institution
                 create_data_files(Crawler.folder_name,
                                   file_name, content)
