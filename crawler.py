@@ -1,6 +1,6 @@
 from db_connection import db_connection
 from urllib.request import urlopen
-from utils import *
+from utils import create_data_files
 from bs4 import BeautifulSoup
 import requests
 
@@ -25,7 +25,6 @@ class Crawler:
     def fetch_url_info():
         try:
             Crawler.cursor.execute(Crawler.URL_QUERY)
-            # row = cursor.fetchone()
             for row in Crawler.cursor:
                 return row['id_url'], row['url'], row['id_tema'], row['institucion']
         except Exception as error:
@@ -64,7 +63,6 @@ class Crawler:
     # obtiene url a buscar y una vez termina, guarda archivo con informacion encontrada
     @staticmethod
     def crawl_page(thread_name):
-        html_string = ''
         url_info = Crawler.fetch_url_info()
         if url_info is not None:
             url_to_crawl = url_info[1]
@@ -75,15 +73,33 @@ class Crawler:
             try:
                 # se hace la peticion GET a la url
                 webpage = requests.get(url_to_crawl, verify=False)
-                soup = BeautifulSoup(webpage.content, 'html.parser')
-                #decodificacion segun charset
-                content = str(webpage.content, webpage.headers.get('charset'))   
+                # decodificacion segun charset
+                content = str(webpage.content, webpage.headers.get('charset'))
                 file_name = Crawler.get_theme(theme_id)+'-'+url_institution
                 create_data_files(Crawler.folder_name,
                                   file_name, content)
-                Crawler.update_url(1,url_id)
+                Crawler.update_url(1, url_id)
             except Exception as e:
                 print(str(e))
                 Crawler.update_url(0, url_id)
         else:
             print('Error al obtener url')
+
+    @staticmethod
+    def crawl_page_for_search(url_to_crawl, key_word):
+        if str(url_to_crawl).find('Aleph'):
+            url_institution = 'POLIJIC'
+        elif str(url_to_crawl).find('tda'):
+            url_institution = 'TDA'
+        else:
+            url_institution = 'COLMA'
+        try:
+            # se hace la peticion GET a la url
+            webpage = requests.get(url_to_crawl, verify=False)
+            # decodificacion segun charset
+            content = str(webpage.content, webpage.headers.get('charset'))
+            file_name = key_word+'-'+url_institution
+            create_data_files(Crawler.folder_name,
+                              file_name, content)
+        except Exception as e:
+                print(str(e))
