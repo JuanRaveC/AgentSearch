@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="iso-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="og:url" property="og:url" content="https://colmayor.janium.net/janium-bin/janium_login_opac.pl?find&ficha_no=9922" />
+    <meta name="og:type" property="og:type" content="book" />
+    <meta name="og:title" property="og:title" content="Estructuras%20de%20datos%20y%20algoritmos%20con%20java" />
+    <meta name="book:author" property="book:author" content="Drozdek%2C%20Adam" />
+    <meta name="book:isbn" property="book:isbn" content="978-970-686-611-0" />
+    <meta name="article:author" property="article:author" content="Drozdek%2C%20Adam" />
+    <meta name="og:description" property="og:description" content="DESCRIPTION" />
+    <meta name="og:image" property="og:image" content="IMAGE_URL" />
+
+    <title>Detalle</title>
+    <link href="/janium/css/janium/janium_skins.min.css" rel="stylesheet">
+    <link href="/janium/css/janium/custom/janium_skins.min.css" rel="stylesheet">
+    <link href="/janium/css/janium/janium.css" rel="stylesheet">
+    <link href="/janium/css/janium/custom/janium.css" rel="stylesheet">
+    <link href="/janium/css/janium/detail_opac.css" rel="stylesheet">
+    <link href="/janium/css/janium/custom/detail_opac.css" rel="stylesheet">
+        <link rel="stylesheet" href="/janium/css/jquery/plugin/jqtree.css">
+    <link rel="stylesheet" href="/janium/css/janium/linked_resources.css">
+    <link rel="stylesheet" href="/janium/css/janium/custom/linked_resources.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700" rel="stylesheet">
+    <script src="/janium/js/modernizr/modernizr-respond.min.js"></script>
+  </head>
+  <body class="hold-transition layout-top-nav fixed skin-janium">
+    <div class="wrapper">
+      <header class="main-header">
+    <div style="clear: both; position: absolute; top: 0px; left: 0px"><FORM name="forma_progs" action="/janium-bin/janium_store.pl?Id=20190707130553" method="post"><INPUT type="hidden" name="Prog" value=""></FORM><form action="/janium-bin/janium_store.pl?Id=20190707130553" name="language_form" method="post" id="language_form"><INPUT type="hidden" name="Prog" value="fija_idioma.pl"><INPUT type="hidden" name="cat" value="1"><INPUT type="hidden" name="lang_params" value=""></FORM></div>
+    <!--chat><script type="text/javascript">
+if (typeof Janium == 'undefined') { document.write("\<script type=\"text\/javascript\" src=\"\/janium\/js\/prototype.js\"\>\<\/script\>\<script type=\"text\/javascript\" src=\"\/janium\/js\/window.js\"\>\<\/script\>\<script type=\"text\/javascript\" src=\"\/janium\/js\/janium.js\"\>\<\/script\>"); }
+</script><chat-->
+
+<SCRIPT type="text/javascript">
+<!--
+var ayuda_programa = "detalle.pl";
+var ayuda_contexto = ""; // debe ser inicializada por el programa
+
+function ayuda() {
+	W = window.open('', "ayuda", "directories=no,menubar=no,toolbar=yes,location=no,scrollbars=yes,resizable=yes,width=650,height=330");
+	W.location.href = "/janium-bin/ayuda.pl?" + "Id=20190707130553" + "&prg=" + ayuda_programa + "&ctx=" + ayuda_contexto;
+}
+
+function change(IMG, SRC) {
+	for (i = 0; i < document.images.length; i++) {
+		if (document.images[i].name == 'menu_' + IMG) {
+			document.images[i].src = SRC;
+		}
+	}
+}
+
+function cambio_idioma() {
+	var idiomaObj = document.getElementById("select_idiomas");
+ 	document.language_form.lang_params.value = idiomaObj.options[idiomaObj.selectedIndex].value;
+	document.language_form.submit();
+}
+//-->
+</SCRIPT>
+
+<TABLE width="100%" class="logo_y_menu"><TR class="logo_y_menu"><TD colspan="2" width="100%" class="logo_y_menu"><TABLE width="100%" class="logos"><TR class="logos"><TD class="logo1" align="left"><img border="0" src="/janium/Imagenes/Banners_20180828.png" ></img></TD></TR></TABLE></TD></TR></DIV></TD>
+</TR>
+</TABLE><nav class="navbar navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    <div id="navbar-collapse" class="navbar-collapse collapse">
+<ul class="nav navbar-nav"><LI><A href="#" onclick="jump_to('busqueda_rapida'); return false;" onmouseover="window.status='Búsqueda rápida';" onmouseout="window.status='';">Búsqueda rápida</A></LI><LI><A href="#" onclick="jump_to('busqueda_avanzada'); return false;" onmouseover="window.status='Búsqueda avanzada';" onmouseout="window.status='';">Búsqueda avanzada</A></LI><LI><A href="#" onclick="jump_to('referencista'); return false;" onmouseover="window.status='Recursos Electrónicos';" onmouseout="window.status='';">Recursos Electrónicos</A></LI><LI><A href="#" onclick="jump_to('otros_catalogos'); return false;" onmouseover="window.status='Otros catálogos';" onmouseout="window.status='';">Otros catálogos</A></LI><LI><A href="#" onclick="jump_to('servicios_de_alerta'); return false;" onmouseover="window.status='Servicios de alerta';" onmouseout="window.status='';">Servicios de alerta</A></LI><LI><A href="#" onclick="jump_to('servicios_al_usuario'); return false;" onmouseover="window.status='Servicios al usuario';" onmouseout="window.status='';">Servicios al usuario</A></LI></ul>
+<ul class="nav navbar-nav navbar-right"><LI><A href="#" onclick="javascript:Janium.open_chat_window(true);; return false;" onmouseover="window.status='Chat';" onmouseout="window.status='';">Chat</A></LI><LI><A href="#" onclick="jump_to('terminar'); return false;" onmouseover="window.status='Terminar';" onmouseout="window.status='';">Terminar</A></LI><LI><A href="#" onclick="ayuda(); return false;" onmouseover="window.status='Ayuda';" onmouseout="window.status='';">Ayuda</A></ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<DIV id="overlaybase" class="overlaybase">
+<DIV id="overlay">
+<DIV id="overlaytitle"></DIV>
+<DIV id="overlaybody">
+<DIV id="overlaytext"></DIV>
+</DIV>
+</DIV>
+</DIV>
+
+      </header>
+      <!-- Full Width Column -->
+      <div class="content-wrapper">
+        <div class="container">
+          <!-- Content Header (Page header) -->
+          <!-- Main content -->
+          <section class="content">
+            <!--[if lt IE 9]>
+            <div class="browserupgrade alert" role="alert">
+              <h4><i class="icon fa fa-ban"></i> Está utilizando un navegador obsoleto.</h4>
+              <p>
+                Por favor, <a href="http://browsehappy.com/" target="_blank">actualice su navegador</a> para mejorar su experiencia.
+                Se requiere la versión <strong>9</strong> o superior de Internet Explorer.
+              </p>
+            </div>
+            <![endif]-->
+
+
+<form action="/janium-bin/janium_store.pl?Id=20190707130553" method="post" name="forma" id="forma">
+  <input type="hidden" name="Total" id="Total" value="1">
+  <input type="hidden" name="Cursor" id="Cursor" value="virtual">
+  <input type="hidden" name="Pagina" id="Pagina" value="1">
+  <input type="hidden" name="current_page" id="current_page" value="1">
+  <input type="hidden" name="number_of_pages" id="number_of_pages" value="1">
+  <input type="hidden" name="Prog" id="Prog" value="">
+  <input type="hidden" name="Z3950" id="Z3950" value="">
+  <input type="hidden" name="buscar" id="buscar" value="">
+  <input type="hidden" name="maximum_of_selected_records" id="maximum_of_selected_records" value="200">
+  <input type="hidden" name="selected_records" id="selected_records" value="0">
+  <input type="hidden" name="shows_authority_references" id="shows_authority_references" value="0">
+  <input type="hidden" name="select_items_for_loan" id="select_items_for_loan" value="0">
+  <input type="hidden" name="selected_records_for_loan" id="selected_records_for_loan" value="0">
+  <input type="hidden" name="go_to_page" id="go_to_page" value="">
+  <input type="hidden" name="criterio" id="criterio" value="">
+  <input type="hidden" name="indice" id="indice" value="">
+  <input type="hidden" name="tipo" id="tipo" value="">
+  <input type="hidden" name="debug" id="debug" value="">
+  <input type="hidden" name="Ficha_no" id="ficha_no" value="">
+  <input type="hidden" name="tag2_0" id="tag2_0" value="">
+  <input type="hidden" name="tag2_0_accion" id="tag2_0_accion" value="buscar">
+  <input type="hidden" name="tag2_0_tipo" id="tag2_0_tipo" value="">
+  <input type="hidden" name="tag2_0_tagger" id="tag2_0_tagger" value="publico">
+</form>
+<!--
+<pre>
+</pre>
+-->
+<div class="row record-header-toolbox">
+  <div class="col-sm-4 record-id-info">
+    <h1>
+      <small>Número de ficha:
+        <span class="text-clementine">9922</span>
+      </small>
+    </h1>
+  </div>
+  <div class="col-sm-8 toolbox-options">
+    <span class="pull-right">
+      <button class="btn btn-primary bg-summer-sky btn-sm btn-selected-records btn-detail-selected-records" type="button">
+        <i class="fa fa-stack-overflow fa-fw fa-lg"></i>
+        <span class="hidden-xs">bibliografía</span>
+        <span class="badge selected-records">0</span>
+      </button>
+      <button class="btn btn-primary bg-blue-grey btn-sm btn-detail-toggle"
+              type="button" data-record-id="9922">
+        despliegue etiquetas
+      </button>
+    </span>
+  </div>
+</div> <!-- .record-header-toolbox -->
+
+
+<div class="row record-data-info">
+  <div class="col-sm-3 detail-cover">
+    <div class="well well-sm detail-cover-container">
+      <a href="#" class="select-record "
+         data-record-id="9922"
+         id="detail-check-record-id-9922"
+         data-page="detail">
+        <span class="pull-left text-librarian">
+          <i class="fa fa-square-o fa-lg"
+              aria-hidden="true"></i>
+        </span>
+      </a>
+            <div class="cover-page detail-cover-cover">
+              <div class="thumbnail text-center detail-thumbnail">
+                <div class="no-cover-top bg-light-grey text-center">
+                  <p class="text-janium"><samp>Sin</samp></p>
+                  <p class="text-janium"><samp>Portada</samp></p>
+                </div>
+                <div class="no-cover-bottom bg-light-grey">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-camera fa-stack-1x text-grey"></i>
+                    <i class="fa fa-ban fa-stack-2x text-janium"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="under-cover">
+            </div> <!-- .under-cover -->
+          </div>
+        </div>
+        <div class="col-sm-9 detail-info">
+          <div class="well well-sm" id="detail-9922">
+            <dl class="dl-horizontal">
+              <dt>
+                ISBN
+              </dt>
+              <dd class="detail-record-info-9922">
+                978-970-686-611-0
+              </dd>
+              <dt>
+                Clasificación DEWEY
+              </dt>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="26"
+                   data-method="alfabeticamente"
+                   data-text-url="005 7 D79"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  005.7/D793
+                </a>
+              </dd>
+              <dt>
+                Autor
+              </dt>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="22"
+                   data-method="alfabeticamente"
+                   data-text-url="DROZDEK ADA"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  Drozdek, Adam
+                </a>
+              </dd>
+              <dt>
+                Título
+              </dt>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="21"
+                   data-method="alfabeticamente"
+                   data-text-url="ESTRUCTURAS DE DATOS Y ALGORITMOS CON J"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  Estructuras de datos y algoritmos con java
+                </a>
+              </dd>
+              <dt>
+                Edición
+              </dt>
+              <dd class="detail-record-info-9922">
+                2.ed.
+              </dd>
+              <dt>
+                Pie de imprenta
+              </dt>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="25"
+                   data-method="alfabeticamente"
+                   data-text-url="THOMPSO"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  Mexico :  Thompson ,  2007
+                </a>
+              </dd>
+              <dt>
+                Descripción
+              </dt>
+              <dd class="detail-record-info-9922">
+                752p.
+              </dd>
+              <dt>
+                Nota de Resumen
+              </dt>
+              <dd class="detail-record-info-9922">
+                El libro destaca tres aspectos importantes de las estructuras de datos. Primero, se hace hincapie en la conexion que hay entre las estructuras de datos y sus algoritmos. segundo, las estructuras se presentan con orientación a objetos. Finalmente, se le da importancia a la implementación, lo cual lleva a los autores a escoger Java como lenguaje de programacion para hacerla.
+              </dd>
+              <dt>
+                Materia
+              </dt>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="23"
+                   data-method="alfabeticamente"
+                   data-text-url="ARBOLES BINARIO"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  ARBOLES BINARIOS
+                </a>
+              </dd>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="23"
+                   data-method="alfabeticamente"
+                   data-text-url="JAV"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  JAVA
+                </a>
+              </dd>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="23"
+                   data-method="alfabeticamente"
+                   data-text-url="COMPRENSION DE DATO"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  COMPRENSION DE DATOS
+                </a>
+              </dd>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="23"
+                   data-method="alfabeticamente"
+                   data-text-url="ALGORITMO"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  ALGORITMOS
+                </a>
+              </dd>
+              <dd class="detail-record-info-9922">
+                <a href="#"
+                   data-index="23"
+                   data-method="alfabeticamente"
+                   data-text-url="ESTRUCTURA DE DATO"
+                   class="gohiperliga"
+                   onclick="search_by_topic(this)">
+                  ESTRUCTURA DE DATOS
+                </a>
+              </dd>
+            </dl>
+          </div>
+          <div class="well well-sm jnm-hidden" id="detail-tags-9922">
+            <table id="detail-tags-table-9922"
+                   class="table table-bordered table-striped detail-tags-table"
+                   cellspacing="0" width="100%">
+              <thead class="bg-grey">
+                <tr>
+                  <th class="text-center">etiq.</th>
+                  <th class="text-center">info</th>
+                </tr>
+           <tbody>
+
+
+                <tr>
+                  <td class="text-center">020</td>
+                  <td>  |a978-970-686-611-0</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">035</td>
+                  <td>  |a9922</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">040</td>
+                  <td>  |aAM-CMA</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">041</td>
+                  <td>  |aspa</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">082</td>
+                  <td>04|a005.7/D793</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">100</td>
+                  <td>1 |aDrozdek, Adam</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">245</td>
+                  <td>00|aEstructuras de datos y algoritmos con java</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">250</td>
+                  <td>  |a2.ed.</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">260</td>
+                  <td>  |aMexico|bThompson|c2007</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">300</td>
+                  <td>  |a752p.</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">520</td>
+                  <td>  |aEl libro destaca tres aspectos importantes de las estructuras de datos. Primero, se hace hincapie en la conexion que hay entre las estructuras de datos y sus algoritmos. segundo, las estructuras se presentan con orientación a objetos. Finalmente, se le da importancia a la implementación, lo cual lleva a los autores a escoger Java como lenguaje de programacion para hacerla.</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">541</td>
+                  <td>  |cC|bdidacl.|h$68.880|dNov/08</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">650</td>
+                  <td> 4|aARBOLES BINARIOS</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">650</td>
+                  <td> 4|aJAVA</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">650</td>
+                  <td> 4|aCOMPRENSION DE DATOS</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">650</td>
+                  <td> 4|aALGORITMOS</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">650</td>
+                  <td> 4|aESTRUCTURA DE DATOS</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div> <!-- .detail-info -->
+      </div> <!-- .record-data-info -->
+
+      <div class="row record-assets">
+          <div id="navis-9922">
+            <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                  <a href="#acquis-tab-9922"
+                     aria-controls="acquis-tab" role="tab" data-toggle="tab">
+                    Acervo
+                  </a>
+                </li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="acquis-tab-9922">
+                  <div class="box box-primary">
+                    <div class="box-body">
+                      <table id="acquis-table-9922"
+                             class="table table-bordered table-striped table-condensed acquis-table"
+                             cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th class="acquis-table-barcode">Código de barras</th>
+                            <th class="acquis-table-library">Biblioteca</th>
+                            <th class="acquis-table-clasif">Clasificación</th>
+                            <th class="acquis-table-vpntc">
+                              Vol. /
+                              Pte. /
+                              No. /
+                              Tomo /
+                              Ej.
+                            </th>
+                            <th class="acquis-table-location">Ubicación</th>
+                            <th class="acquis-table-type">Tipo</th>
+                            <th class="acquis-table-status">Estado</th>
+                            <th class="acquis-table-cover"></th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th class="acquis-table-barcode">Código de barras</th>
+                            <th class="acquis-table-library">Biblioteca</th>
+                            <th class="acquis-table-clasif">Clasificación</th>
+                            <th class="acquis-table-vpntc">
+                              Vol. /
+                              Pte. /
+                              No. /
+                              Tomo /
+                              Ej.
+                            </th>
+                            <th class="acquis-table-location">Ubicación</th>
+                            <th class="acquis-table-type">Tipo</th>
+                            <th class="acquis-table-status">Estado</th>
+                            <th class="acquis-table-cover"></th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <tr>
+                            <td>
+                              12250
+                            </td>
+                            <td>
+                              Teresa Santamaría de González
+                            </td>
+                            <td>
+                               005.7 D793
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                              Colección General
+                            </td>
+                            <td>
+                              LIBRO
+                            </td>
+                            <td>
+                              <span class="item-status item-status-1">
+                                Disponible
+                              </span>
+                            </td>
+                            <td class="detail-cover-container">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <span id="have-a-cover-9922" data-value="0"></span>
+                    </div> <!-- .box-body -->
+                  </div> <!-- .box -->
+                </div>
+              </div> <!-- .tab-content -->
+
+          </div> <!-- .navis -->
+      </div> <!-- .record-assets -->
+
+
+<script type="text/javascript">
+var $MSJ = {
+  'titulo_pagina': "Detalle",
+  'all_libraries_title': "Todas",
+  'permalink_label': "Permalink",
+  'tags2_0_public_by_user': "Mis tags públicas",
+  'theader_tags_label': "etiq.",
+  'theader_acquis_status': "Estado",
+  'cover_sin': "Sin",
+  'theader_acquis_clasif': "Clasificación",
+  'tags2_0_private_to_user': "Mis tags",
+  'marc_holdings': {
+    'ubicacion': "Ubicación",
+    'copia': "Copia",
+    'existencias': "Existencias",
+    'biblioteca': "Biblioteca",
+  },
+  'alt_portada': "Portada",
+  'sin_copias': "Sin copias",
+  'theader_acquis_library': "Biblioteca",
+  'numero': "No.",
+  'acervo': "Acervo",
+  'tomo': "Tomo",
+  'enrichment_label': "Relacionado",
+  'number_of_references_tag': "Referencias:",
+  'expires_on': "vence el",
+  'theader_tags_info': "info",
+  'bibliography_select': "Debe seleccionar el menos un registro antes de ir a la página de Bibliografía.",
+  'despliegue_bibliografico': "despliegue bibliográfico",
+  'select_to_request': "Seleccione para solicitar material en préstamo",
+  'bibliografia': "bibliografía",
+  'select_item_searched': "Seleccione ítem buscado",
+  'solicitar_prestamo': "solicitar préstamo",
+  'error_imposible_realizar_operacion': "No ha sido posible realizar la operación solicitada",
+  'tags2_0_public': "Tags públicas",
+  'theader_acquis_type': "Tipo",
+  'titulo_numero_ficha': "Número de ficha:",
+  'sumario_existencias': "Sumario existencias",
+  'theader_acquis_volptetom': "V. / Pte. / No. / T. / EJ.",
+  'cover_portada': "Portada",
+  'records_for_loan_select': "Debe seleccionar el menos un ítem antes de ir a la página de Solicitud de material.",
+  'share_button': "Compartir",
+  'records_for_loan_click': "Puede hacerlo dando click en la casilla que se encuentra a la izquierda del mismo.",
+  'bibliography_limit': "Se ha alcanzado el límite registros seleccionado para bibliografía",
+  'copy_permalink': "Copiar permalink",
+  'dataTables': {
+    'empty_table': "Ningún dato disponible en esta tabla",
+    'zero_records': "No se encontraron resultados",
+    'info_thousands': ",",
+    'length_menu': "Mostrar _MENU_ registros",
+    'loading_records': "Cargando...",
+    'buttons_copy_title': "Copiar al portapapeles",
+    'buttons_copy': "Copiar",
+    'buttons_copy_keys': "Presiona &lt;i&gt;ctrl&lt;/i&gt; o &lt;i&gt;\⌘&lt;/i&gt; + &lt;i&gt;C&lt;/i&gt; para copiar los datos de la tabla al portapaleles. &lt;br&gt;&lt;br&gt;Para cancelar, da clic en este mensaje o presiona Escape.",
+    'aria_paginate_previous': "Anterior",
+    'paginate_last': "Último",
+    'aria_paginate_first': "Primero",
+    'buttons_copy_success_1': "Una fila copiada",
+    'aria_paginate_last': "Último",
+    'info_filtered': "(filtrado de un total de _MAX_ registros)",
+    'buttons_colvis': "Mostrar u ocultar columnas",
+    'paginate_next': "Siguiente",
+    'info_empty': "Mostrando registros del 0 al 0 de un total de 0 registros",
+    'decimal': ".",
+    'aria_paginate_next': "Siguiente",
+    'paginate_previous': "Anterior",
+    'search': "Buscar:",
+    'paginate_first': "Primero",
+    'aria_sort_ascending': ": Activar para ordenar la columna de manera ascendente",
+    'info': "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    'buttons_copy_success__': "%d filas copiadas",
+    'processing': "Procesando...",
+    'aria_sort_descending': ": Activar para ordenar la columna de manera descendente",
+  },
+  'volumen': "Vol.",
+  'copia': "Ej.",
+  'not_possible_to_request': "No es posible solicitar el material en préstamo",
+  'despliegue_etiquetas': "despliegue etiquetas",
+  'permalink_copied': "Permalink copiado exitósamente",
+  'without_acquis': "Sin datos de acervo",
+  'bibliography_click': "Puede hacerlo dando click en la casilla que se encuentra a la izquierda del registro.",
+  'theader_acquis_location': "Ubicación",
+  'theader_acquis_barcode': "Código de barras",
+  'parte': "Pte.",
+  'close_detail_modal': "Cerrar",
+  'linked_resources': "Recursos vinculados",
+};
+var $SEARCH_TERMS = [
+  "JAVA",
+];
+var $SESSION_ID = '20190707130553';
+var $RECORD_ID  = '9922';
+</script>
+
+          </section><!-- /.content -->
+        </div><!-- /.container -->
+      </div><!-- /.content-wrapper -->
+
+      <footer class="main-footer">
+        <div class="container">
+          <div class="pull-right hidden-xs">
+          </div>
+          <strong>Copyright &copy; 2001-2018 <a href="http://www.janium.com">Janium</a></strong>
+        </div><!-- /.container -->
+      </footer>
+
+    </div><!-- ./wrapper -->
+
+    <script src="/janium/js/jquery/jquery.min.js"></script>
+    <script src="/janium/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/janium/js/bootstrap/ie10-viewport-bug-workaround.js"></script>
+    <script src="/janium/js/jquery/plugin/datatables.min.js"></script>
+    <script src="/janium/js/jquery/plugin/jquery.placeholder.min.js"></script>
+    <script src="/janium/js/jquery/plugin/bootbox.min.js"></script>
+    <script src="/janium/js/moment/moment.min.js"></script>
+    <script src="/janium/js/jquery/plugin/datatables-datetime-moment.min.js"></script>
+    <script src="/janium/js/jquery/plugin/datatables-row-show.min.js"></script>
+    <script src="/janium/js/jquery/plugin/bootstrap-datepicker.min.js"></script>
+    <script src="/janium/js/jquery/plugin/jquery.slimscroll.min.js"></script>
+    <script src="/janium/js/jquery/plugin/jquery.validate.min.js"></script>
+    <script src="/janium/js/jquery/plugin/bootstrap-notify.min.js"></script>
+        <script src="/janium/js/jquery/plugin/jquery.mark.min.js" charset="utf-8"></script>
+    <script src="/janium/js/clipboard/clipboard.min.js"></script>
+    <script src="/janium/js/jquery/plugin/tree.jquery.js"></script>
+    <script src="/janium/js/jquery/plugin/jquery.qrcode.min.js"></script>
+
+    <script src="/janium/js/adminlte/app.min.js"></script>
+    <script src="/janium/js/janium/janium.js"></script>
+    <script src="/janium/js/janium/custom/janium.js"></script>
+    <script src="/janium/js/janium/detail_opac.js"></script>
+    <script src="/janium/js/janium/custom/detail_opac.js"></script>
+    <!-- Janium / end -->
+        <script src="/janium/js/janium/linked_resources.js"></script>
+    <script src="/janium/js/janium/custom/linked_resources.js"></script>
+
+    </body>
+</html>
