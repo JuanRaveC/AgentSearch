@@ -38,21 +38,24 @@ def construct_url_for_search(base_url_list, key_word):
     #iteracion en cada una de las url bases
     processed_list = []
     for url in base_url_list:
-        #procesamiento de url
+        #procesamiento de url. Setea la palabra en la url
         processed_url = url['url'].format(key_word)
+        #acumula las urls procesadas
         processed_list.append(processed_url)
-    
+    #retorna la lista de urls finales
     return processed_list
 
-def url_construct_for_search(key_word):
+def url_constructor_for_search(key_word):
     #obtener lista de urls base
     base_url_list = generic_query(base_url_list_query)
     processed_list = ''
-    #validar si alguna de las dos listas esta vacia
+    #validar si la lista esta vacia
     if base_url_list is not None:
+        #envia la lista de urls base y la palabra clave para construir url final
         processed_list = construct_url_for_search(base_url_list, key_word)
     else:
         print('listas vacias')
+    #se retorna la lista de urls procesadas
     return processed_list
 
     
