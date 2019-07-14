@@ -4,9 +4,11 @@ from bs4 import BeautifulSoup
 from xml_processing import create_xml_file
 from print_results_manager import print_results
 import time
-
+from queue import Queue
 
 class ProcessAgent():
+
+    self_queue = Queue()
 
     @staticmethod
     def process_file(file_name):

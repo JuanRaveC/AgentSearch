@@ -86,20 +86,24 @@ class Crawler:
             print('Error al obtener url')
 
     @staticmethod
-    def crawl_page_for_search(url_to_crawl, key_word):
-        if str(url_to_crawl).find('Aleph'):
-            url_institution = 'POLIJIC'
-        elif str(url_to_crawl).find('tda'):
-            url_institution = 'TDA'
-        else:
-            url_institution = 'COLMA'
+    def crawl_page_for_search(url_to_crawl, key_word, folder_name):
         try:
-            # se hace la peticion GET a la url
-            webpage = requests.get(url_to_crawl, verify=False)
-            # decodificacion segun charset
-            content = str(webpage.content, webpage.headers.get('charset'))
+            #validar a que institucion pertenece la url a buscar
+            if 'aleph' in str(url_to_crawl):
+                url_institution = 'POLIJIC'
+                # se hace la peticion GET a la url
+                webpage = requests.get(url_to_crawl, verify=False)
+            elif 'tdea' in str(url_to_crawl):
+                url_institution = 'TDA'
+                # se hace la peticion GET a la url
+                webpage = requests.post(url_to_crawl, verify=False)
+            else:
+                url_institution = 'COLMA'
+                # se hace la peticion GET a la url
+                webpage = requests.post(url_to_crawl, verify=False)
+
+            content = webpage.text
             file_name = key_word+'-'+url_institution
-            create_data_files(Crawler.folder_name,
-                              file_name, content)
+            create_data_files(folder_name, file_name, content)
         except Exception as e:
                 print(str(e))

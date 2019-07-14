@@ -2,6 +2,7 @@ from queue import Queue
 from threading import Thread
 from url_constructor_manager import url_constructor, url_constructor_for_search
 from crawler import Crawler
+from process_agent import ProcessAgent
 import time
 
 class JoinAgent():
@@ -25,15 +26,16 @@ class JoinAgent():
                 if url_list is not None:
                     for url in url_list:
                         #se hace crawling por cada url constuida
-                        Crawler.crawl_page_for_search(url, key_word)
+                        Crawler.crawl_page_for_search(url, key_word, JoinAgent.FOLDER_NAME)
 
                     #se comunica con el agente de procesamiento
-                    JoinAgent.process_queue.put(key_word)
+                    ProcessAgent.self_queue.put(key_word)
                     #desencola el mensaje para indicar que ya termino la obtencion de informacion
                     JoinAgent.self_queue.task_done()
 
-    def __init__(self, self_queue, index_queue, process_queue):
+    def __init__(self, self_queue, index_queue, process_queue, FOLDER_NAME):
         print("Estoy en el agente integrador")
         JoinAgent.self_queue = self_queue
         JoinAgent.index_queue = index_queue
         JoinAgent.process_queue = process_queue
+        JoinAgent.FOLDER_NAME = FOLDER_NAME

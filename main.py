@@ -56,7 +56,7 @@ if __name__ == '__main__':
     #singleton de inicialización
     if flag:
         #Agente integrador
-        join_agent_instance = JoinAgent(join_agent_queue, index_agent_queue, process_agent_queue)
+        join_agent_instance = JoinAgent(join_agent_queue, index_agent_queue, process_agent_queue, FOLDER_NAME)
         join_agent_thread = threading.Thread(target=join_agent_instance.work)
         join_agent_thread.daemon = True
         join_agent_thread.start()  
