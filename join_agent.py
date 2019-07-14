@@ -1,6 +1,6 @@
 from queue import Queue
 from threading import Thread
-from url_constructor_manager import url_constructor, url_construct_for_search
+from url_constructor_manager import url_constructor, url_constructor_for_search
 from crawler import Crawler
 import time
 
@@ -18,7 +18,7 @@ class JoinAgent():
                     time.sleep(5)
             else:
                 #se obtiene lista de urls a buscar deacuerdo a palabra encontrada en la cola
-                url_list = url_construct_for_search(key_word)
+                url_list = url_constructor_for_search(key_word)
                 if url_list is not None:
                     for url in url_list:
                         #se hace crawling por cada url constuida

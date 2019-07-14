@@ -10,6 +10,10 @@ import pygubu
 
 
 FOLDER_NAME = 'HTML'
+#creación de colas
+process_agent_queue = Queue()
+index_agent_queue = Queue()
+join_agent_queue = Queue()
 
 
 class Application:
@@ -26,34 +30,39 @@ class Application:
 if __name__ == '__main__':
     print('Creando directorio: ' + FOLDER_NAME)
     create_data_dir(FOLDER_NAME)
+    flag = True
     # Inicializar los agentes
 
     # inicializando agentes
-    #creación de colas
-    process_agent_queue = Queue()
-    index_agent_queue = Queue()
-    join_agent_queue = Queue()
 
     # agente integrador
-    join_agent = threading.Thread(target=JoinAgent(join_agent_queue, index_agent_queue, process_agent_queue))
-    join_agent.daemon = True
-    join_agent.start()
+    #join_agent = threading.Thread(target=JoinAgent(join_agent_queue, index_agent_queue, process_agent_queue))
+    #join_agent.daemon = True
+    #join_agent.start()
 
     # agente procesador
-    process_agent = threading.Thread(target=ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME))
-    process_agent.daemon = True
-    process_agent.start()
+    #process_agent = threading.Thread(target=ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME))
+    #process_agent.daemon = True
+    #process_agent.start()
 
-    # agente indexador
-    index_agent = threading.Thread(target=IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue))
-    index_agent.daemon = True
-    index_agent.start()
+    
+    
 
     # Creando crawler principal
-    crawler = threading.Thread(target=Crawler(FOLDER_NAME))
-    index_agent.daemon = True
-    index_agent.start()
-
+    #crawler = threading.Thread(target=Crawler(FOLDER_NAME))
+    #crawler.daemon = True
+    #crawler.start()
+    #singleton de inicialización
+    if flag:
+        # agente indexador
+        index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
+        index_agent_thread = threading.Thread(target=index_agent_instance.work)
+        index_agent_thread.daemon = True
+        index_agent_thread.start()
+        index_agent_queue.put("Hola agente")
+        print("Volvi al main!!")
+        flag = False
+    
     # iniciar la pantalla principal
     root = tk.Tk()
     app = Application(root)
