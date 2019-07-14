@@ -23,6 +23,7 @@ def custom_url_constructor_for_polijic(url_base):
 
 def construct_url(base_url_list, key_word, key_word_id):
     insert_statement = "insert into url(url, id_tema, institucion, crawled_ind) values('{}',{},'{}',0)"
+    update_statement = "update agentdb.tema set tema_ind = 1 where id_tema = {}"
     #iteracion en cada una de las url bases
     for url in base_url_list:
         #procesamiento de url
@@ -34,7 +35,7 @@ def construct_url(base_url_list, key_word, key_word_id):
             processed_url = url['url'].format(key_word)
         #validacion del insert
         if(generic_insert(insert_statement.format(processed_url,key_word_id,url['institucion']))):
-            print('insert correcto')
+            generic_db_opperation(update_statement.format(key_word_id))
             return True
         else:
             print('Error insertando direccion procesada')
@@ -42,7 +43,7 @@ def construct_url(base_url_list, key_word, key_word_id):
     
 #agente constructor
 def url_constructor():
-    themes_query = "select tema, id_tema from agentdb.tema where id_xml is null"
+    themes_query = "select tema, id_tema from agentdb.tema where tema_ind = 0"
     #obtener lista de temas a buscar
     themes_list = generic_query(themes_query)
     #obtener lista de urls base
@@ -56,7 +57,7 @@ def url_constructor():
                 return False
     else:
         print('listas vacias')
-        return True
+        return False
 
 def construct_url_for_search(base_url_list, key_word):
     #iteracion en cada una de las url bases

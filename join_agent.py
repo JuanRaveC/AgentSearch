@@ -14,9 +14,9 @@ class JoinAgent():
             #sino hay palbra en la cola, se hace procesamiento de construccion de urls para temas pendientes
             if JoinAgent.self_queue.empty():
                 print("cola del agente integrador vacia")
-                #if not url_constructor():
+                if not url_constructor():
                     #sino encuentra urls para contruir en proceso batch, duerme el proceso 5segundos
-                time.sleep(5)
+                    time.sleep(5)
             else:
                 #obtiene palabra de la cola
                 key_word = JoinAgent.self_queue.get()

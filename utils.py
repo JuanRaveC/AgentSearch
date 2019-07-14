@@ -15,7 +15,7 @@ def create_data_files(folder_name, file_name, data):
 
 #funcion generica para escribir en archivo
 def write_file(path, data):
-    with open(path, 'w') as f:
+    with open(path, "w", encoding="utf-8") as f:
         f.write(data)
 
 def retreive_information(key_word):
