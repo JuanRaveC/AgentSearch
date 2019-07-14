@@ -8,13 +8,11 @@ import threading
 import tkinter as tk  # python 3
 import pygubu
 
-
 FOLDER_NAME = 'HTML'
 #creación de colas
 process_agent_queue = Queue()
 index_agent_queue = Queue()
 join_agent_queue = Queue()
-
 
 class Application:
     def __init__(self, master):
@@ -33,7 +31,8 @@ class Application:
         text_input_object = self.builder.get_variable('search_input')
         keyword_input = text_input_object.get()
         #envia a la cola
-        index_agent_queue.put(keyword_input) #no es el agente que debe recibir, solo estoy probando
+        #index_agent_queue.put(keyword_input) #no es el agente que debe recibir, solo estoy probando
+        join_agent_queue.put(keyword_input)
         text_input_object.set(' ')
 
 
@@ -50,32 +49,35 @@ if __name__ == '__main__':
 
     # inicializando agentes
 
-    # agente integrador
-    #join_agent = threading.Thread(target=JoinAgent(join_agent_queue, index_agent_queue, process_agent_queue))
-    #join_agent.daemon = True
-    #join_agent.start()
-
-    # agente procesador
-    #process_agent = threading.Thread(target=ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME))
-    #process_agent.daemon = True
-    #process_agent.start()
-
-    
-    
-
     # Creando crawler principal
     #crawler = threading.Thread(target=Crawler(FOLDER_NAME))
     #crawler.daemon = True
     #crawler.start()
     #singleton de inicialización
     if flag:
-        # agente indexador
-        index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
-        index_agent_thread = threading.Thread(target=index_agent_instance.work)
-        index_agent_thread.daemon = True
-        index_agent_thread.start()
-        index_agent_queue.put("Hola agente")
+        #Agente integrador
+        join_agent_instance = JoinAgent(join_agent_queue, index_agent_queue, process_agent_queue)
+        join_agent_thread = threading.Thread(target=join_agent_instance.work)
+        join_agent_thread.daemon = True
+        join_agent_thread.start()  
         print("Volvi al main!")
+
+        # agente indexador
+        #index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
+        #index_agent_thread = threading.Thread(target=index_agent_instance.work)
+        #index_agent_thread.daemon = True
+        #index_agent_thread.start()
+        #index_agent_queue.put("Hola agente")
+        #print("Volvi al main!")
+
+        #agente procesador
+        '''process_agent_instance = ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME)
+        process_agent_thread = threading.Thread(target=process_agent_instance.work)
+        process_agent_thread.daemon = True
+        process_agent_thread.start()
+        print("Volvi al main!")
+        '''
+        #no volver a inicializar mas
         flag = False
     
     # iniciar la pantalla principal

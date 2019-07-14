@@ -14,9 +14,8 @@ class IndexAgent():
                     IndexAgent.self_queue.task_done()
                     #realizar ordenamiento de la BD
                     order_query = "alter table agentdb.historial order by palabra_clave asc"
-                    time.sleep(5)
-                    #if not generic_db_opperation(order_query):
-                        #print('error en proceso de indexar')
+                    if not generic_db_opperation(order_query):
+                        print('error en proceso de indexar')
                 except Exception as error:
                     print(error)
             else:
@@ -26,14 +25,15 @@ class IndexAgent():
                 insert_theme_query = "inset into agentdb.tema(tema) values('{}')"
                 #buscar registros que tengan mas de un mes de antiguedad
                 registries_to_update_query = "select * from agentdb.historial where fecha < (CURDATE()- INTERVAL 30 DAY)"
-                #registry_list = generic_query(registries_to_update_query)
-                #if registry_list is not None:
-                #    for registry in registry_list:
+                registry_list = generic_query(registries_to_update_query)
+                if registry_list is not None:
+                    for registry in registry_list:
+                        print(registry)
                 #        if not generic_insert(insert_theme_query.format(registry)):
                 #            print('error insertando tema')
-                #else:
-                #    print('No existen archivos a procesar')
-                #    time.sleep(5)
+                else:
+                    print('No existen archivos a procesar')
+                    time.sleep(5)
 
     def __init__(self, self_queue, join_queue, process_queue):
         print("Estoy en el agente indexador!")
