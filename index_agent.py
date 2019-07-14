@@ -14,14 +14,14 @@ class IndexAgent():
                     IndexAgent.self_queue.task_done()
                     #realizar ordenamiento de la BD
                     order_query = "alter table agentdb.historial order by palabra_clave asc"
-                    #time.sleep(5)
+                    time.sleep(5)
                     #if not generic_db_opperation(order_query):
                         #print('error en proceso de indexar')
                 except Exception as error:
                     print(error)
             else:
                 print("No hay nada en la cola!!")
-                #time.sleep(5)
+                time.sleep(5)
                 #query de insercion a la bd de temas
                 insert_theme_query = "inset into agentdb.tema(tema) values('{}')"
                 #buscar registros que tengan mas de un mes de antiguedad

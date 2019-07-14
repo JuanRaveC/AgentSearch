@@ -25,6 +25,21 @@ class Application:
         builder.add_from_file('C:/Users/USUARIO/Documents/mainframe.ui')
         # 3: Crear widgets
         self.mainwindow = builder.get_object('Frame_1', master)
+        #continuar con el hilo de ejecución de la UI
+        builder.connect_callbacks(self)
+
+    #obtener informacion del campo de texto
+    def retrieve_input(self):
+        text_input_object = self.builder.get_variable('search_input')
+        keyword_input = text_input_object.get()
+        #envia a la cola
+        index_agent_queue.put(keyword_input) #no es el agente que debe recibir, solo estoy probando
+        text_input_object.set(' ')
+
+
+    #evento del boton buscar
+    def search_on_click(self):
+        Application.retrieve_input(self)
 
 
 if __name__ == '__main__':
@@ -60,7 +75,7 @@ if __name__ == '__main__':
         index_agent_thread.daemon = True
         index_agent_thread.start()
         index_agent_queue.put("Hola agente")
-        print("Volvi al main!!")
+        print("Volvi al main!")
         flag = False
     
     # iniciar la pantalla principal
