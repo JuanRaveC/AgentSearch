@@ -24,3 +24,12 @@ def generic_insert(insert):
         print(error)
         print('Error insertando registro '+ insert)
         return 0
+
+def generic_db_opperation(query):
+    try:
+        cursor.execute(query)
+        return 1
+    except Exception as error:
+        print(error)
+        print('Error realizando operacion: '+ query)
+        return 0

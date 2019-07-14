@@ -9,13 +9,13 @@ def create_data_dir(directory):
 
 # Crea archivo en carpeta especificada
 def create_data_files(folder_name, file_name, data):
-    file_to_create = os.path.join(folder_name, file_name+'.txt')
+    file_to_create = os.path.join(folder_name, file_name+'.html')
     if not os.path.isfile(file_to_create):
         write_file(file_to_create, data)
 
 #funcion generica para escribir en archivo
 def write_file(path, data):
-    with open(path, 'w') as f:
+    with open(path, "w", encoding="utf-8") as f:
         f.write(data)
 
 def retreive_information(key_word):
