@@ -34,8 +34,8 @@ class ProcessAgent():
     def work():
         while True:
             #validar la cola
-            key_word = ProcessAgent.self_queue.get()
-            if not key_word:
+            if not ProcessAgent.self_queue.empty():
+                key_word = ProcessAgent.self_queue.get()
                 #obtener archivos a procesar
                 file_list = glob(ProcessAgent.folder_name+'/*.html')
                 if file_list is not None:
