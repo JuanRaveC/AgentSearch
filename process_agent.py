@@ -5,57 +5,43 @@ from xml_processing import create_xml_file
 from print_results_manager import print_results
 import time
 from queue import Queue
+from process_retrieved_information import process_file_for_search, process_file_for_batch
+from pathlib import Path
 
 class ProcessAgent():
 
     self_queue = Queue()
 
     @staticmethod
-    def process_file(file_name):
-        processed_results = []
-        try:
-            #uso de beutifulsoup para realizar el analisis
-            soup = BeautifulSoup(open(file_name), "html.parser")
-            #recorrer el resultado de la funcion find() de beautifulsoup
-            for titulo, autor, tipo, biblioteca, descripcion in soup.find('span', {'class': 'titulo'}, {'class': 'autor'}, {'class': 'tipo'}, {'class': 'biblioteca'}, {'class': 'descripcion'}):
-                processed_results.append('Titulo: '+titulo)
-                processed_results.append('Autor: '+autor)
-                processed_results.append('Tipo: '+tipo)
-                processed_results.append('Biblioteca: '+biblioteca)
-                processed_results.append('Descripcion: '+descripcion)
-            #creación de xml
-            create_xml_file(processed_results)
-        except Exception as error:
-            print(error)
-        finally:
-            return processed_results
-
-    @staticmethod
     def work():
         while True:
             #validar la cola
-            if not ProcessAgent.self_queue.empty():
-                key_word = ProcessAgent.self_queue.get()
+            if ProcessAgent.self_queue.empty():
                 #obtener archivos a procesar
-                file_list = glob(ProcessAgent.folder_name+'/*.html')
-                if file_list is not None:
-                    for file in file_list:
-                        #procesar cada archivo encontrado
-                        ProcessAgent.process_file(file)
-                else:
-                    print('No existen archivos a procesar')
+                processed_response = ''
+                # obtener archivos a procesar
+                for file_name in Path(ProcessAgent.folder_name).glob('**/*.html'):
+                    #print(file_name)
+                    if 'TDA' in str(file_name):
+                        processed_response = process_file_for_batch(str(file_name), 'TDA')
+                if not processed_response:
+                    print('No existen archivos para procesar!!')
                     time.sleep(5)
             else:
+                key_word = ProcessAgent.self_queue.get()
+                print("cola del agente PROCESADOR tiene {}".format(key_word))
                 #procesar archivos en caso de busqueda a demanda
-                process_result_poli = ProcessAgent.process_file(key_word+'-POLIJIC.html')
-                process_result_tda = ProcessAgent.process_file(key_word+'-TDA.html')
-                process_result_col = ProcessAgent.process_file(key_word+'-COLMA.html')
-                
-                print_results(process_result_poli, process_result_tda, process_result_col)
+                #process_result_poli = process_file_for_search(key_word+'-POLIJIC.html', key_word, 'POLIJIC')
+                tda_file_name = Path(ProcessAgent.folder_name+"/"+key_word+"-TDA.html") 
+                process_result_tda = process_file_for_search(tda_file_name, key_word, 'TDA')
+                #process_result_col = process_file_for_search(key_word+'-COLMA.html')
+                #print_results(process_result_poli, process_result_tda, process_result_col)
+                print_results(Path("base_response.html"), process_result_tda, key_word)
+
 
     def __init__(self, self_queue, index_queue, join_queue, folder_name):
+        print('Estoy en el agente procesador!')
         ProcessAgent.self_queue = self_queue
         ProcessAgent.index_queue = index_queue
         ProcessAgent.join_queue = join_queue
         ProcessAgent.folder_name = folder_name
-        ProcessAgent.work()

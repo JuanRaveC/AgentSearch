@@ -9,18 +9,17 @@ class JoinAgent():
 
     @staticmethod
     def work():
-        while True:    
-
+        while True:
             #sino hay palbra en la cola, se hace procesamiento de construccion de urls para temas pendientes
             if JoinAgent.self_queue.empty():
-                print("cola del agente integrador vacia")
+                print("cola del agente INTEGRADOR vacia")
                 if not url_constructor():
                     #sino encuentra urls para contruir en proceso batch, duerme el proceso 5segundos
                     time.sleep(5)
             else:
                 #obtiene palabra de la cola
                 key_word = JoinAgent.self_queue.get()
-                print("cola del agente integrador tiene {}".format(key_word))
+                print("cola del agente INTEGRADOR tiene {}".format(key_word))
                 #se obtiene lista de urls a buscar deacuerdo a palabra encontrada en la cola
                 url_list = url_constructor_for_search(key_word)
                 if url_list is not None:
