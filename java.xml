@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<respuesta id="20180528143050" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="respuesta.xsd">
+	<metadatos>
+		<fecha xml:space="preserve">1 Julio 2019</fecha>
+		<consulta xml:space="preserve">java</consulta>
+		<cantidad xml:space="preserve">40</cantidad>
+	</metadatos>
+	<recurso id="01">
+		<autor>
+			<nombres xml:space="preserve">Miguel Ángel</nombres>
+			<apellidos xml:space="preserve">Lozano Ortega</apellidos>
+		</autor>
+		<tipo xml:space="preserve">Libro</tipo>
+		<titulo xml:space="preserve">Desarrollo de aplicaciones Android con Java /Miguel Ángel Lozano Ortega, Antonio Javier Gallego</titulo>
+		<catalogo>
+			<nombre xml:space="preserve">Aleph</nombre>
+			<version xml:space="preserve">version 21</version>
+		</catalogo>
+		<biblioteca xml:space="preserve">Biblioteca Tomás Carrasquilla</biblioteca>
+		<descripcion xml:space="preserve">Bogotá (Colombia) : Ediciones de la U, 2017</descripcion>
+	</recurso>
+	<recurso id="02">
+		<autor>
+			<nombres xml:space="preserve">Celsa Milena</nombres>
+			<apellidos xml:space="preserve">Bedoya Tilano</apellidos>
+		</autor>
+		<tipo xml:space="preserve">Tesis</tipo>
+		<titulo xml:space="preserve">Desarrollo de una aplicación web para la administración de campañas de bienestar laboral /Cels</titulo>
+		<catalogo>
+			<nombre xml:space="preserve">Janium</nombre>
+			<version xml:space="preserve">version 11.03</version>
+		</catalogo>
+		<biblioteca xml:space="preserve">Biblioteca Tomás Carrasquilla</biblioteca>
+		<descripcion xml:space="preserve">Medellín :Politécnico Colombiano Jaime Isaza Cadavid,2016.</descripcion>
+	</recurso>
+	<recurso id="03">
+		<autor>
+			<nombres xml:space="preserve">Herbert</nombres>
+			<apellidos xml:space="preserve">Schildt</apellidos>
+		</autor>
+		<tipo xml:space="preserve">Libro</tipo>
+		<titulo xml:space="preserve">Fundamentos de Java</titulo>
+		<catalogo>
+			<nombre xml:space="preserve">Educatic</nombre>
+			<version xml:space="preserve">version </version>
+		</catalogo>
+		<biblioteca xml:space="preserve">Biblioteca Humberto Saldarriaga Carmona</biblioteca>
+		<descripcion xml:space="preserve">005.133 S334F</descripcion>
+	</recurso>
+</respuesta>

@@ -31,7 +31,6 @@ class Application:
         text_input_object = self.builder.get_variable('search_input')
         keyword_input = text_input_object.get()
         #envia a la cola
-        #index_agent_queue.put(keyword_input) #no es el agente que debe recibir, solo estoy probando
         join_agent_queue.put(keyword_input)
         text_input_object.set(' ')
 
@@ -60,7 +59,7 @@ if __name__ == '__main__':
         join_agent_thread = threading.Thread(target=join_agent_instance.work)
         join_agent_thread.daemon = True
         join_agent_thread.start()  
-        print("Volvi al main!")
+        #print("Volvi al main!")
 
         # agente indexador
         #index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
@@ -71,12 +70,13 @@ if __name__ == '__main__':
         #print("Volvi al main!")
 
         #agente procesador
-        '''process_agent_instance = ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME)
+        process_agent_instance = ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME)
         process_agent_thread = threading.Thread(target=process_agent_instance.work)
         process_agent_thread.daemon = True
         process_agent_thread.start()
-        print("Volvi al main!")
-        '''
+        #process_agent_queue.put('java')
+        print("Volvi al main! despues del process_agent!!")
+        
         #no volver a inicializar mas
         flag = False
     
