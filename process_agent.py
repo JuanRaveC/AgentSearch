@@ -2,7 +2,7 @@ from glob import glob
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 from xml_processing import create_xml_file
-from print_results_manager import print_results
+from print_results_manager import print_all_results
 import time
 from queue import Queue
 from process_retrieved_information import process_file_for_search, process_file_for_batch
@@ -31,12 +31,15 @@ class ProcessAgent():
                 key_word = ProcessAgent.self_queue.get()
                 print("cola del agente PROCESADOR tiene {}".format(key_word))
                 #procesar archivos en caso de busqueda a demanda
+                poli_file_name = Path(ProcessAgent.folder_name+"/"+key_word+"-POLIJIC.html")
+                process_result_poli = process_file_for_search(poli_file_name, key_word, 'POLIJIC')
                 #process_result_poli = process_file_for_search(key_word+'-POLIJIC.html', key_word, 'POLIJIC')
                 tda_file_name = Path(ProcessAgent.folder_name+"/"+key_word+"-TDA.html") 
                 process_result_tda = process_file_for_search(tda_file_name, key_word, 'TDA')
                 #process_result_col = process_file_for_search(key_word+'-COLMA.html')
                 #print_results(process_result_poli, process_result_tda, process_result_col)
-                print_results(Path("base_response.html"), process_result_tda, key_word)
+                #print_results(Path("base_response.html"), process_result_tda, key_word)
+                print_all_results(Path("base_response.html"), key_word,process_result_tda, process_result_poli, "hola colmalievers 100")
 
 
     def __init__(self, self_queue, index_queue, join_queue, folder_name):

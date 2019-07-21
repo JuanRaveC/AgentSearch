@@ -1,6 +1,6 @@
 from glob import glob
 from bs4 import BeautifulSoup
-from print_results_manager import print_results
+from print_results_manager import print_results_tda, print_results_polijic
 import time
 from queue import Queue
 from pathlib import Path
@@ -9,6 +9,13 @@ import os
 
 
 def process_tda_file(soup):
+    '''
+    Titulo:  
+    Autor: 
+    Tipo: 
+    Biblioteca: 
+    Descripcion:
+    '''
     response = ''
     quantity = 0
     for td in soup.find_all('td'):
@@ -25,7 +32,7 @@ def process_tda_file(soup):
                     key = 'Autor: '
                     response += (key + value + '\n')
                     response += 'Tipo: libro' + '\n'
-            else: 
+            else:
                 pass
         else:
             value = td.text
@@ -38,44 +45,75 @@ def process_tda_file(soup):
     response += ('Cantidad de registros: ' + str(quantity) + '\n')
     return response
 
+
 def process_polijic_file(soup):
-    pass
+    '''
+    Titulo:  
+    Autor: 
+    Tipo: 
+    Biblioteca: 
+    Descripcion:
+    '''
+    response = ''
+    number_of_registries = 0
+    for tr in soup.findAll('tr', {'valign': 'baseline'}):
+        response += '------------------------------------------------------------------------------------------------------------\n'
+        tr_title = tr.find('script').text
+        tr_title = tr_title.split('/')[0]
+        response += 'Titulo: ' + \
+            tr_title[tr_title.find("'") + 1:tr_title.find(";") - 1] + '\n'
+        tr_author = tr.find('td', {'width': '20%'})
+        response += 'Autor: ' + tr_author.text + '\n'
+        tr_type = tr.find('td', {'width': '5%'})
+        response += 'Tipo: ' + tr_type.text + '\n'
+        tr_library = 'Biblioteca: Tomás Carrasquilla'
+        response += tr_library + '\n'
+        tr_description = tr.find(
+            'script').next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.string
+        response += 'Descripcion: ' + tr_description + '\n'
+        number_of_registries += 1
+    response += 'Cantidad de registros: ' + str(number_of_registries) + '\n'
+    return response
+
 
 def process_file_for_search(file_name, key_word, institution):
     if key_word in str(file_name):
         try:
-            #print(file_name)
             with codecs.open(file_name, 'r', encoding='utf-8') as f:
-                soup = BeautifulSoup(f.read(),"html.parser")
+                soup = BeautifulSoup(f.read(), "html.parser")
                 if 'TDA' in institution:
                     response =  process_tda_file(soup)
-                #elif 'POLIJIC' in institution:
-                #    return process_polijic_file(soup)
+                elif 'POLIJIC' in institution:
+                    response = process_polijic_file(soup)
+                else:
+                    pass
             try:
-                #Path.unlink(file_name)
+                Path.unlink(file_name)
                 pass
-            except OSError as error:  
-                print ("Error: {} - {}.".format(error.filename, error.strerror))
-            
+            except OSError as error:
+                print("Error: {} - {}.".format(error.filename, error.strerror))
+
             return response
         except Exception as error:
             print(error)
     else:
-        pass    
+        pass
+
 
 def process_file_for_batch(file_name, institution):
     try:
         with codecs.open(file_name, 'r', encoding='utf-8') as f:
-            soup = BeautifulSoup(f.read(),"html.parser")
+            soup = BeautifulSoup(f.read(), "html.parser")
             if 'TDA' in institution:
                 return process_tda_file(soup)
-            #elif 'POLIJIC' in institution:
-            #    return process_polijic_file(soup)
+            elif 'POLIJIC' in institution:
+                return process_polijic_file(soup)
             else:
                 pass
     except Exception as error:
         print(error)
-    
 
-#tda_data = process_file_for_search(Path("HTML/java-TDA.html"), 'java', 'TDA')
-#print_results(Path("base_response.html"), tda_data, 'java')
+
+#tda_data = process_file_for_search(
+#    Path("HTML/java-POLIJIC.html"), 'java', 'POLIJIC')
+#print_results_polijic(Path("base_response.html"), tda_data, 'java')
