@@ -30,6 +30,7 @@ class ProcessAgent():
             else:
                 key_word = ProcessAgent.self_queue.get()
                 print("cola del agente PROCESADOR tiene {}".format(key_word))
+                time.sleep(2)
                 #procesar archivos en caso de busqueda a demanda
                 poli_file_name = Path(ProcessAgent.folder_name+"/"+key_word+"-POLIJIC.html")
                 process_result_poli = process_file_for_search(poli_file_name, key_word, 'POLIJIC')

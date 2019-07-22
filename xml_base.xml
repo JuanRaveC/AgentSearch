@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<respuesta id="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="respuesta.xsd">
+	<metadatos>
+		<fecha xml:space="preserve">fecha</fecha>
+		<consulta xml:space="preserve">hola</consulta>
+		<cantidad xml:space="preserve">2</cantidad>
+	</metadatos>
+</respuesta>

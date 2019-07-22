@@ -7,6 +7,7 @@ from pathlib import Path
 import codecs
 import os
 
+LINE = '------------------------------------------------------------------------------------------------------------' + '\n'
 
 def process_tda_file(soup):
     '''
@@ -24,7 +25,7 @@ def process_tda_file(soup):
             value = td.a.text
             if href is not None:
                 if 'TITULO' in href:
-                    response += '------------------------------------------------------------------------------------------------------------' + '\n'
+                    response += LINE
                     key = 'Titulo: '
                     quantity += 1
                     response += (key + value + '\n')
@@ -57,7 +58,7 @@ def process_polijic_file(soup):
     response = ''
     number_of_registries = 0
     for tr in soup.findAll('tr', {'valign': 'baseline'}):
-        response += '------------------------------------------------------------------------------------------------------------\n'
+        response += LINE
         tr_title = tr.find('script').text
         tr_title = tr_title.split('/')[0]
         response += 'Titulo: ' + \
@@ -70,8 +71,12 @@ def process_polijic_file(soup):
         response += tr_library + '\n'
         tr_description = tr.find(
             'script').next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.string
+        if tr_description is None:
+            tr_description = tr.find(
+            'script').next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.string
         response += 'Descripcion: ' + tr_description + '\n'
         number_of_registries += 1
+        print(response)
     response += 'Cantidad de registros: ' + str(number_of_registries) + '\n'
     return response
 
@@ -79,19 +84,22 @@ def process_polijic_file(soup):
 def process_file_for_search(file_name, key_word, institution):
     if key_word in str(file_name):
         try:
-            with codecs.open(file_name, 'r', encoding='utf-8') as f:
-                soup = BeautifulSoup(f.read(), "html.parser")
-                if 'TDA' in institution:
-                    response =  process_tda_file(soup)
-                elif 'POLIJIC' in institution:
-                    response = process_polijic_file(soup)
-                else:
+            if Path(file_name).exists():
+                with codecs.open(file_name, 'r', encoding='utf-8') as f:
+                    soup = BeautifulSoup(f.read(), "html.parser")
+                    if 'TDA' in institution:
+                        response =  process_tda_file(soup)
+                    elif 'POLIJIC' in institution:
+                        response = process_polijic_file(soup)
+                    else:
+                        pass
+                try:
+                    Path.unlink(file_name)
                     pass
-            try:
-                Path.unlink(file_name)
-                pass
-            except OSError as error:
-                print("Error: {} - {}.".format(error.filename, error.strerror))
+                except OSError as error:
+                    print("Error: {} - {}.".format(error.filename, error.strerror))
+            else:
+                response = 'Error'
 
             return response
         except Exception as error:
@@ -114,6 +122,8 @@ def process_file_for_batch(file_name, institution):
         print(error)
 
 
-#tda_data = process_file_for_search(
-#    Path("HTML/java-POLIJIC.html"), 'java', 'POLIJIC')
-#print_results_polijic(Path("base_response.html"), tda_data, 'java')
+tda_data = process_file_for_search(
+    Path("HTML/ruby-POLIJIC.html"), 'ruby', 'POLIJIC')
+
+
+#print_results_polijic(Path("base_response.html"), tda_data, 'ruby')
