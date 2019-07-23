@@ -3,10 +3,12 @@ import xml.etree.ElementTree as ET
 import time
 from bs4 import BeautifulSoup
 from lxml import etree
+from db_manager import generic_insert
 
 SPACE = ' '
-ATTR_NAME = 'xml:space'
-LINE = '---------------------------------------\n'
+LINE = '------------------------------------------------------------------------------------------------------------' + '\n'
+FOLDER_NAME = 'HTML/'
+XML_INSER_QUERY = 'insert into agentdb.xml (xml) values ("{}")'
 
 def get_date(option):
     ts = time.gmtime()
@@ -18,7 +20,7 @@ def get_date(option):
         date = date_[2] + SPACE + date_[1] + SPACE + date_[4]
     return date
 
-def create_xml_file(data):
+def create_xml_file(data, key_word):
     tree = ET.parse('xml_base.xml')
     root = tree.getroot()
     ts = time.gmtime()
@@ -36,7 +38,7 @@ def create_xml_file(data):
     #analizar cadena:
     data_list = data.split(LINE)
     for data in data_list:
-        if data:
+        if data and '-----' not in str(data):
             resource = ET.SubElement(root, "recurso", id=str(counter))
             row_list = str(data).split('\n')
             for row in row_list:
@@ -51,8 +53,11 @@ def create_xml_file(data):
                     str_library = data_element[1]
                 elif 'Descripcion' in data_element[0]:
                     str_description = data_element[1]
-                    if data_element[2]:
-                        str_description += data_element[2]
+                    try:
+                        if data_element[2]:
+                            str_description += data_element[2]
+                    except Exception as error:
+                        print(error)
                 else:
                     pass
             #adicion de tags
@@ -60,18 +65,18 @@ def create_xml_file(data):
             resource_author.set('xml:space','preserve')
             author_name = ET.SubElement(resource_author, "nombres")
             author_name.set('xml:space','preserve')
-            author_name.text = str_autor
+            author_name.text = str_autor or "No data returned"
             author_last_name = ET.SubElement(resource_author, "apellidos")
             author_last_name.set('xml:space','preserve')
-            author_last_name.text = str_autor
+            author_last_name.text = str_autor or "No data returned"
             #tipo
             resource_type = ET.SubElement(resource, "tipo")
             resource_type.set('xml:space','preserve')
-            resource_type.text = str_type
+            resource_type.text = str_type or "No data returned"
             #titulo
             resource_title = ET.SubElement(resource, "titulo")
             resource_title.set('xml:space','preserve')
-            resource_title.text = str_title
+            resource_title.text = str_title or "No data returned"
             #catalogo
             resource_library = ET.SubElement(resource, "catalogo")
             resource_library.set('xml:space','preserve')
@@ -92,13 +97,14 @@ def create_xml_file(data):
             library_version = ET.SubElement(resource_library, "version")
             library_name.set('xml:space','preserve')
             library_version.set('xml:space','preserve')
-            library_name.text = str_library_name
-            library_version.text = str_library_version
+            library_name.text = str_library_name or "No data returned"
+            library_version.text = str_library_version or "No data returned"
             #incremento del id
             counter += 1
         else:
             pass
     
     #crear archivo
-    print(etree.tostring(tree, pretty_print=True))
-    tree.write("procesado.xml", encoding='utf-8', method="xml")
+    tree.write(FOLDER_NAME+key_word+"-procesado.xml", encoding='utf-8', method="xml")
+    xml_string = ET.tostring(tree.getroot())
+    generic_insert(XML_INSER_QUERY.format(str(xml_string).replace('"',"'" )))

@@ -76,7 +76,6 @@ def process_polijic_file(soup):
             'script').next_element.next_element.next_element.next_element.next_element.next_element.next_element.next_element.string
         response += 'Descripcion: ' + tr_description + '\n'
         number_of_registries += 1
-        print(response)
     response += 'Cantidad de registros: ' + str(number_of_registries) + '\n'
     return response
 
@@ -121,9 +120,3 @@ def process_file_for_batch(file_name, institution):
     except Exception as error:
         print(error)
 
-
-tda_data = process_file_for_search(
-    Path("HTML/ruby-POLIJIC.html"), 'ruby', 'POLIJIC')
-
-
-#print_results_polijic(Path("base_response.html"), tda_data, 'ruby')

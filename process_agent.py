@@ -41,10 +41,10 @@ class ProcessAgent():
                 #print_results(process_result_poli, process_result_tda, process_result_col)
                 #print_results(Path("base_response.html"), process_result_tda, key_word)
                 print_all_results(Path("base_response.html"), key_word,process_result_tda, process_result_poli, "hola colmalievers 100")
+                create_xml_file(process_result_poli+process_result_tda, key_word)
 
 
     def __init__(self, self_queue, index_queue, join_queue, folder_name):
-        print('Estoy en el agente procesador!')
         ProcessAgent.self_queue = self_queue
         ProcessAgent.index_queue = index_queue
         ProcessAgent.join_queue = join_queue

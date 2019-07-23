@@ -33,7 +33,6 @@ class JoinAgent():
                     JoinAgent.self_queue.task_done()
 
     def __init__(self, self_queue, index_queue, process_queue, FOLDER_NAME):
-        print("Estoy en el agente integrador")
         JoinAgent.self_queue = self_queue
         JoinAgent.index_queue = index_queue
         JoinAgent.process_queue = process_queue

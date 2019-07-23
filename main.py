@@ -20,7 +20,7 @@ class Application:
         # 1: crear un builder
         self.builder = builder = pygubu.Builder()
         # 2: cargar archiv ui
-        builder.add_from_file('C:/Users/USUARIO/Documents/mainframe.ui')
+        builder.add_from_file('mainframe.ui')
         # 3: Crear widgets
         self.mainwindow = builder.get_object('Frame_1', master)
         #continuar con el hilo de ejecución de la UI
@@ -54,12 +54,10 @@ if __name__ == '__main__':
         join_agent_thread.start()  
 
         # agente indexador
-        #index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
-        #index_agent_thread = threading.Thread(target=index_agent_instance.work)
-        #index_agent_thread.daemon = True
-        #index_agent_thread.start()
-        #index_agent_queue.put("Hola agente")
-        #print("Volvi al main!")
+        index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
+        index_agent_thread = threading.Thread(target=index_agent_instance.work)
+        index_agent_thread.daemon = True
+        index_agent_thread.start()
 
         #agente procesador
         process_agent_instance = ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME)

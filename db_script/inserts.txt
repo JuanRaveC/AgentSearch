@@ -1,0 +1,3 @@
+insert into agentdb.url_base (url, institucion) values ("http://aleph.gsl.com.mx:8986/F/-/?func=file&file_name=login&local_base=pol01", "POLIJIC");
+insert into agentdb.url_base (url, institucion) values ("https://campus.tdea.edu.co/bivi/busquedaExterna.do?blnExterna=1&strAccion=busquedaBasica&strOpcionesBusqueda=ITEM.STRTITULO&strBusqueda={}&idColeccion=-1", "COLMA");
+insert into agentdb.url_base (url, institucion) values ("https://colmayor.janium.net/janium-bin/janium_store.pl?Id={}", "COLMA");
