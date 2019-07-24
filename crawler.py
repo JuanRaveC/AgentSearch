@@ -29,8 +29,7 @@ class Crawler:
             for row in Crawler.cursor:
                 return row['id_url'], row['url'], row['id_tema'], row['institucion']
         except Exception as error:
-            print(error)
-            print('Error al consultar la url a Crawlear')
+            print('NO hay URLs a buscar')
             return '', ''
 
     # hace el update en el registro/url que se consultó para marcar como visitada
@@ -42,7 +41,6 @@ class Crawler:
             Crawler.cursor.execute(update_query)
             Crawler.conn.commit()
         except Exception as error:
-            print(error)
             print('Error al actualizar la url')
         finally:
             Crawler.cursor.close()
@@ -58,7 +56,7 @@ class Crawler:
                 return row['tema']
         except Exception as error:
             print(error)
-            print('Error al consultar el id del tema')
+            print('No hay temas a buscar')
             return '', ''
 
     # obtiene url a buscar y una vez termina, guarda archivo con informacion encontrada
@@ -71,7 +69,6 @@ class Crawler:
                 url_id = url_info[0]
                 theme_id = url_info[2]
                 url_institution = url_info[3]
-                print(thread_name + ' Crawling ')
                 try:
                     str_theme = Crawler.get_theme(theme_id)
                     Crawler.crawl_page_for_search(url_to_crawl,str_theme, Crawler.folder_name)

@@ -5,6 +5,8 @@ from pathlib import Path
 
 FOLDER_NAME = 'HTML'
 FILE_LASTNAME = "-respuesta"
+XML_LAST_NAME = '-procesado'
+XML_EXTENSION = '.xml'
 FILE_EXTENSION = ".html"
 SLASH = "/"
 
@@ -37,7 +39,8 @@ def print_all_results(file_name, key_word, tda_data, poli_data, colma_data):
     #nombre del archivo
     file_name = Path(FOLDER_NAME + SLASH + key_word + FILE_LASTNAME + FILE_EXTENSION)
     #link
-    html = html.replace("xml_data", str(file_name))
+    xml_link = key_word + XML_LAST_NAME + XML_EXTENSION
+    html = html.replace("xml_data", str(xml_link))
     if file_name.exists():
         try:
             Path.unlink(file_name)

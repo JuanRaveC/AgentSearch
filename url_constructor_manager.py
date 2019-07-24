@@ -68,7 +68,6 @@ def construct_url_for_search(base_url_list, key_word):
             processed_url = custom_url_constructor_for_polijic(url['url'])
             #procesamiento de url. Setea la palabra en la url
             processed_url = processed_url.format(key_word)
-            print(processed_url)
         else:
             #procesamiento de url. Setea la palabra en la url
             processed_url = url['url'].format(key_word)
