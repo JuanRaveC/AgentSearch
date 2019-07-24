@@ -20,7 +20,7 @@ class Application:
         # 1: crear un builder
         self.builder = builder = pygubu.Builder()
         # 2: cargar archiv ui
-        builder.add_from_file('C:/Users/USUARIO/Documents/mainframe.ui')
+        builder.add_from_file('mainframe.ui')
         # 3: Crear widgets
         self.mainwindow = builder.get_object('Frame_1', master)
         #continuar con el hilo de ejecución de la UI
@@ -44,14 +44,7 @@ if __name__ == '__main__':
     print('Creando directorio: ' + FOLDER_NAME)
     create_data_dir(FOLDER_NAME)
     flag = True
-    # Inicializar los agentes
 
-    # inicializando agentes
-
-    # Creando crawler principal
-    #crawler = threading.Thread(target=Crawler(FOLDER_NAME))
-    #crawler.daemon = True
-    #crawler.start()
     #singleton de inicialización
     if flag:
         #Agente integrador
@@ -59,23 +52,23 @@ if __name__ == '__main__':
         join_agent_thread = threading.Thread(target=join_agent_instance.work)
         join_agent_thread.daemon = True
         join_agent_thread.start()  
-        #print("Volvi al main!")
 
         # agente indexador
-        #index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
-        #index_agent_thread = threading.Thread(target=index_agent_instance.work)
-        #index_agent_thread.daemon = True
-        #index_agent_thread.start()
-        #index_agent_queue.put("Hola agente")
-        #print("Volvi al main!")
+        index_agent_instance = IndexAgent(index_agent_queue, join_agent_queue, process_agent_queue)
+        index_agent_thread = threading.Thread(target=index_agent_instance.work)
+        index_agent_thread.daemon = True
+        index_agent_thread.start()
 
         #agente procesador
         process_agent_instance = ProcessAgent(process_agent_queue, index_agent_queue, join_agent_queue, FOLDER_NAME)
         process_agent_thread = threading.Thread(target=process_agent_instance.work)
         process_agent_thread.daemon = True
         process_agent_thread.start()
-        #process_agent_queue.put('java')
-        print("Volvi al main! despues del process_agent!!")
+        
+        # Creando crawler principal
+        #crawler = threading.Thread(target=Crawler(FOLDER_NAME))
+        #crawler.daemon = True
+        #crawler.start()
         
         #no volver a inicializar mas
         flag = False
