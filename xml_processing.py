@@ -2,7 +2,6 @@
 import xml.etree.ElementTree as ET
 import time
 from bs4 import BeautifulSoup
-from lxml import etree
 from db_manager import generic_insert, generic_query
 
 SPACE = ' '
