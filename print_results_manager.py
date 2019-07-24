@@ -36,6 +36,8 @@ def print_all_results(file_name, key_word, tda_data, poli_data, colma_data):
             html = html.replace("colma_number_of_records", "0")
     #nombre del archivo
     file_name = Path(FOLDER_NAME + SLASH + key_word + FILE_LASTNAME + FILE_EXTENSION)
+    #link
+    html = html.replace("xml_data", str(file_name))
     if file_name.exists():
         try:
             Path.unlink(file_name)

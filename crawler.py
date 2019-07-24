@@ -3,6 +3,7 @@ from urllib.request import urlopen
 from utils import create_data_files
 from bs4 import BeautifulSoup
 import requests
+import time
 
 
 class Crawler:
@@ -14,7 +15,7 @@ class Crawler:
     URL_QUERY = 'select * from agentdb.url where crawled_ind = 0 limit 1'
     URL_UPDATE = 'update agentdb.url set crawled_ind = {} where id_url = {}'
     THEME_INFORMATION = 'select tema from agentdb.tema where id_tema = {}'
-    folder_name = ''
+    folder_name = 'HTML'
 
     def __init__(self, folder_name):
         Crawler.folder_name = folder_name
@@ -65,23 +66,21 @@ class Crawler:
     def crawl_page(thread_name):
         url_info = Crawler.fetch_url_info()
         if url_info is not None:
-            url_to_crawl = url_info[1]
-            url_id = url_info[0]
-            theme_id = url_info[2]
-            url_institution = url_info[3]
-            print(thread_name + ' Crawling ')
-            try:
-                # se hace la peticion GET a la url
-                webpage = requests.get(url_to_crawl, verify=False)
-                # decodificacion segun charset
-                content = str(webpage.content, webpage.headers.get('charset'))
-                file_name = Crawler.get_theme(theme_id)+'-'+url_institution
-                create_data_files(Crawler.folder_name,
-                                  file_name, content)
-                Crawler.update_url(1, url_id)
-            except Exception as e:
-                print(str(e))
-                Crawler.update_url(0, url_id)
+            if url_info[0] and url_info[1]:
+                url_to_crawl = url_info[1]
+                url_id = url_info[0]
+                theme_id = url_info[2]
+                url_institution = url_info[3]
+                print(thread_name + ' Crawling ')
+                try:
+                    str_theme = Crawler.get_theme(theme_id)
+                    Crawler.crawl_page_for_search(url_to_crawl,str_theme, Crawler.folder_name)
+                    Crawler.update_url(1, url_id)
+                except Exception as e:
+                    print(str(e))
+                    Crawler.update_url(0, url_id)
+            else:
+                pass
         else:
             print('Error al obtener url')
 
@@ -107,3 +106,10 @@ class Crawler:
             create_data_files(folder_name, file_name, content)
         except Exception as e:
                 print(str(e))
+
+    @staticmethod
+    def work():
+
+        while True:
+            Crawler.crawl_page('crawler_init')
+            time.sleep(5)

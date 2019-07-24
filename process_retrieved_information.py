@@ -10,13 +10,36 @@ import os
 LINE = '------------------------------------------------------------------------------------------------------------' + '\n'
 
 def process_tda_file(soup):
-    '''
-    Titulo:  
-    Autor: 
-    Tipo: 
-    Biblioteca: 
-    Descripcion:
-    '''
+    response = ''
+    quantity = 0
+    for td in soup.find_all('td'):
+        if td.a:
+            href = td.a.get('href')
+            value = td.a.text
+            if href is not None:
+                if 'TITULO' in href:
+                    response += LINE
+                    key = 'Titulo: '
+                    quantity += 1
+                    response += (key + value + '\n')
+                elif 'NOMBRE' in href:
+                    key = 'Autor: '
+                    response += (key + value + '\n')
+                    response += 'Tipo: libro' + '\n'
+            else:
+                pass
+        else:
+            value = td.text
+            if 'Biblioteca' in value:
+                key = 'Biblioteca: Humberto Saldarriaga Carmona' + '\n'
+                response += key
+            elif 'LIBRE' in value:
+                key = 'Descripcion: '
+                response += key + value + '\n'
+    response += ('Cantidad de registros: ' + str(quantity) + '\n')
+    return response
+
+def process_colma_file(soup):
     response = ''
     quantity = 0
     for td in soup.find_all('td'):
@@ -48,13 +71,6 @@ def process_tda_file(soup):
 
 
 def process_polijic_file(soup):
-    '''
-    Titulo:  
-    Autor: 
-    Tipo: 
-    Biblioteca: 
-    Descripcion:
-    '''
     response = ''
     number_of_registries = 0
     for tr in soup.findAll('tr', {'valign': 'baseline'}):

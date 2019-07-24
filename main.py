@@ -66,9 +66,9 @@ if __name__ == '__main__':
         process_agent_thread.start()
         
         # Creando crawler principal
-        #crawler = threading.Thread(target=Crawler(FOLDER_NAME))
-        #crawler.daemon = True
-        #crawler.start()
+        crawler = threading.Thread(target=Crawler.work)
+        crawler.daemon = True
+        crawler.start()
         
         #no volver a inicializar mas
         flag = False

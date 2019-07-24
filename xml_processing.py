@@ -3,12 +3,14 @@ import xml.etree.ElementTree as ET
 import time
 from bs4 import BeautifulSoup
 from lxml import etree
-from db_manager import generic_insert
+from db_manager import generic_insert, generic_query
 
 SPACE = ' '
 LINE = '------------------------------------------------------------------------------------------------------------' + '\n'
 FOLDER_NAME = 'HTML/'
-XML_INSER_QUERY = 'insert into agentdb.xml (xml) values ("{}")'
+XML_INSERT_QUERY = 'insert into agentdb.xml (xml, xml_tema) values ("{}", "{}")'
+XML_SELECT_QUERY = 'select id_xml from agentdb.xml where xml_tema like "%{}%"'
+HISTORY_QUERY = 'insert into agentdb.historial (palabra_clave, fecha, id_xml) values("{}","{}","{}")'
 
 def get_date(option):
     ts = time.gmtime()
@@ -18,6 +20,8 @@ def get_date(option):
         date_ = time.strftime("%c", ts)
         date_ = date_.split()
         date = date_[2] + SPACE + date_[1] + SPACE + date_[4]
+    elif option == 'yyyymmdd':
+        date = time.strftime("%Y-%m-%d", ts)
     return date
 
 def create_xml_file(data, key_word):
@@ -106,5 +110,12 @@ def create_xml_file(data, key_word):
     
     #crear archivo
     tree.write(FOLDER_NAME+key_word+"-procesado.xml", encoding='utf-8', method="xml")
+    #convertir xml a string
     xml_string = ET.tostring(tree.getroot())
-    generic_insert(XML_INSER_QUERY.format(str(xml_string).replace('"',"'" )))
+    #guardar xml en BD
+    generic_insert(XML_INSERT_QUERY.format(str(xml_string).replace('"',"'" ), key_word))
+    #guardar historial
+    xml_id_list = generic_query(XML_SELECT_QUERY.format(key_word))
+    for i in xml_id_list:
+         xml_id = i['id_xml']
+    generic_insert(HISTORY_QUERY.format(key_word.strip(), get_date('yyyymmdd'),xml_id))
